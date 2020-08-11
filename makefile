@@ -3,3 +3,6 @@ checkin: tidy
 
 tidy:
 	./node_modules/.bin/prettier --write .
+
+frontend:
+	./node_modules/.bin/react-scripts start

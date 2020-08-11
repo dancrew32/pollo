@@ -13,8 +13,8 @@ export const typeDefs = gql`
   }
 
   type Query {
-    getBooks(limit: Int!, offset: Int): [Book]
-    getAuthor(author: String!): [Book]
+    books(limit: Int!, offset: Int): [Book]
+    author(author: String!): [Book]
   }
 
   type Mutation {

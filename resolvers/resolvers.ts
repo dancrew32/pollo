@@ -4,8 +4,8 @@ import { getBooks, getAuthor, addBook, deleteBook } from "./books";
 export const resolvers = {
   Query: {
     // book
-    getBooks,
-    getAuthor,
+    books: getBooks,
+    author: getAuthor,
   },
   Mutation: {
     // auth

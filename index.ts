@@ -8,6 +8,10 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context,
+  cors: {
+    origin: "*",
+    // credentials: true,
+  },
   // tracing: true,
   // playground: false,
 });
