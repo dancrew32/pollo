@@ -1,5 +1,5 @@
-import {register, login} from './auth';
-import {getBooks, getAuthor, addBook, deleteBook} from './books';
+import { register, login } from "./auth";
+import { getBooks, getAuthor, addBook, deleteBook } from "./books";
 
 export const resolvers = {
   Query: {
@@ -15,5 +15,5 @@ export const resolvers = {
     // book
     addBook,
     deleteBook,
-  }
+  },
 };

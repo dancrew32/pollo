@@ -1,11 +1,11 @@
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from "apollo-server";
 
-import {resolvers} from './resolvers/resolvers';
-import {typeDefs} from './typeDefs';
-import {context} from './context';
+import { resolvers } from "./resolvers/resolvers";
+import { typeDefs } from "./typeDefs";
+import { context } from "./context";
 
 const server = new ApolloServer({
-  typeDefs, 
+  typeDefs,
   resolvers,
   context,
   // tracing: true,

@@ -1,17 +1,17 @@
-import { Pool } from 'pg';
+import { Pool } from "pg";
 
 const pool = new Pool({
-  user: 'pollo',
-  host: 'localhost',
-  database: 'demo',
-  password: 'pollo',
+  user: "pollo",
+  host: "localhost",
+  database: "demo",
+  password: "pollo",
   port: 5432,
 });
 
 type QueryData = {
-  rows: Array<any>,
-  count: number,
-}
+  rows: Array<any>;
+  count: number;
+};
 
 export async function query(sql: string, params: any = []): Promise<QueryData> {
   const res = await pool.query(sql, params);

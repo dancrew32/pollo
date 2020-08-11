@@ -1,18 +1,18 @@
-import {readFileSync} from 'fs';
+import { readFileSync } from "fs";
 
-import {hash as bcryptHash, compare as bcryptCompare} from 'bcrypt';
-import { v4 as uuidv4 } from 'uuid';
-import { sign, verify, JsonWebTokenError } from 'jsonwebtoken';
-import { query } from './db';
+import { hash as bcryptHash, compare as bcryptCompare } from "bcrypt";
+import { v4 as uuidv4 } from "uuid";
+import { sign, verify, JsonWebTokenError } from "jsonwebtoken";
+import { query } from "./db";
 
-const privateKey = readFileSync('private.key');
+const privateKey = readFileSync("private.key");
 const SALT_ROUNDS = 10;
 
 export type UserType = {
   id: string;
   username: string;
   token?: string;
-}
+};
 
 export async function makeTokenForUserId(id: string) {
   const data = {
@@ -43,7 +43,10 @@ async function hashPassword(password: string) {
   return await bcryptHash(password, SALT_ROUNDS);
 }
 
-export async function comparePassword(password: string, passwordHashed: string): Promise<boolean> {
+export async function comparePassword(
+  password: string,
+  passwordHashed: string
+): Promise<boolean> {
   return await bcryptCompare(password, passwordHashed);
 }
 
@@ -58,7 +61,10 @@ export async function createUser(username: string, password: string) {
   };
 }
 
-export async function getUserById(id: string, token?: string): Promise<UserType> {
+export async function getUserById(
+  id: string,
+  token?: string
+): Promise<UserType> {
   if (!id) {
     return null;
   }

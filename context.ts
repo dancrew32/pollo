@@ -1,9 +1,9 @@
-import {getUserIdForToken, getUserById} from './user';
+import { getUserIdForToken, getUserById } from "./user";
 
-export async function context({req}) {
-  const {headers} = req;
+export async function context({ req }) {
+  const { headers } = req;
   const origin = headers.origin;
-  const userAgent = headers['user-agent'];
+  const userAgent = headers["user-agent"];
   const referrer = headers.referer;
   const authorization = parseToken(headers.authorization);
   const userId = await getUserIdForToken(authorization);
@@ -20,5 +20,5 @@ function parseToken(authorization: string): string {
   if (!authorization) {
     return null;
   }
-  return authorization.slice(7); // Bearer<space> 
+  return authorization.slice(7); // Bearer<space>
 }
