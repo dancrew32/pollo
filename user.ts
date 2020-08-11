@@ -68,12 +68,15 @@ export async function getUserById(
   if (!id) {
     return null;
   }
-  const data = await query(`
+  const data = await query(
+    `
     SELECT id, username
     FROM users
     WHERE id = $1
     LIMIT 1
-  `);
+  `,
+    [id]
+  );
   const userData = data.rows[0];
   return {
     id: userData.id,

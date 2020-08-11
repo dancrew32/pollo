@@ -13,6 +13,7 @@ export const typeDefs = gql`
   }
 
   type Query {
+    me: User
     books(limit: Int!, offset: Int): [Book]
     author(author: String!): [Book]
   }

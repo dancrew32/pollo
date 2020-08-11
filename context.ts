@@ -1,4 +1,5 @@
 import { getUserIdForToken, getUserById } from "./user";
+import { CLIENT_RENEG_WINDOW } from "tls";
 
 export async function context({ req }) {
   const { headers } = req;
@@ -7,7 +8,7 @@ export async function context({ req }) {
   const referrer = headers.referer;
   const authorization = parseToken(headers.authorization);
   const userId = await getUserIdForToken(authorization);
-  const user = await getUserById(userId);
+  const user = await getUserById(userId, authorization);
   return {
     origin,
     userAgent,
@@ -19,6 +20,9 @@ export async function context({ req }) {
 function parseToken(authorization: string): string {
   if (!authorization) {
     return null;
+  }
+  if (authorization.length > 200) {
+    console.warn("large jwt token", authorization);
   }
   return authorization.slice(7); // Bearer<space>
 }
