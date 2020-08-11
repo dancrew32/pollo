@@ -2,17 +2,26 @@ import { gql } from 'apollo-server';
 
 export const typeDefs = gql`
   type Book {
-    name: String
-    author: String
+    name: String!
+    author: String!
+  }
+
+  type User {
+    id: String!
+    username: String!
+    token: String!
   }
 
   type Query {
-    getBooks(offset: Int, limit: Int): [Book],
-    getAuthor(author: String): [Book],
+    getBooks(limit: Int!, offset: Int): [Book]
+    getAuthor(author: String!): [Book]
   }
 
   type Mutation {
-    addBook(name: String, author: String): Book,
-    deleteBook(name: String): [Book],
+    register(username: String!, password: String!): User
+    login(username: String!, password: String!): User
+
+    addBook(name: String!, author: String!): Book!
+    deleteBook(name: String!): [Book]
   }
 `;
