@@ -1,6 +1,6 @@
 import { query } from '../db';
 import { createUser, comparePassword } from '../user';
-import {UserType} from '../user';
+import {UserType, makeTokenForUserId} from '../user';
 
 export async function register(_: any, args: { username: string; password: string; }): Promise<UserType>   {
   const user = await createUser(args.username, args.password);
@@ -22,10 +22,16 @@ export async function register(_: any, args: { username: string; password: strin
     VALUES ($1, $2, $3)
     RETURNING id, username
   `, [user.id, user.usernameTrimmed, user.passwordHashed]);
-  return data.rows[0];
+  const userData = data.rows[0];
+  const token = await makeTokenForUserId(userData.id);
+  return {
+    id: userData.id,
+    username: userData.username,
+    token,
+  };
 }
 
-export async function login(_: any, args: { username: string; password: string; }): Promise<UserType>   {
+export async function login(_: any, args: { username: string; password: string; }): Promise<UserType> {
   const usernameTrimmed = args.username.trim().toLowerCase();
   const data = await query(`
     SELECT id, username, password
@@ -42,8 +48,10 @@ export async function login(_: any, args: { username: string; password: string; 
     // TODO(DAN): generic login error bad username or password
     return null;
   }
+  const token = await makeTokenForUserId(userData.id);
   return {
     id: userData.id,
     username: userData.username,
+    token,
   };
 }

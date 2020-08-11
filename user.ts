@@ -58,7 +58,7 @@ export async function createUser(username: string, password: string) {
   };
 }
 
-export async function getUserById(id: string): Promise<UserType> {
+export async function getUserById(id: string, token?: string): Promise<UserType> {
   if (!id) {
     return null;
   }
@@ -72,5 +72,6 @@ export async function getUserById(id: string): Promise<UserType> {
   return {
     id: userData.id,
     username: userData.username,
+    token,
   };
 }
